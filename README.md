@@ -1,6 +1,6 @@
-# MOSTRO 1000 Kalibre Zımpara Makinesi — Safety 4.0 Analizleri (Lab 1–4)
+# MOSTRO 1000 Kalibre Zımpara Makinesi — Safety 4.0 Analizleri (Lab 1–5)
 
-Safety 4.0 Bootcamp laboratuvar föylerinin **ilk dört analizi**, örnek makine olarak
+Safety 4.0 Bootcamp laboratuvar föylerinin **ilk beş analizi**, örnek makine olarak
 **MOSTRO 1000 kalibre zımpara makinesi** üzerinde doldurulmuştur.
 
 > Bu föyler bir eğitim çıktısıdır; resmî denetim, uygunluk değerlendirmesi veya
@@ -14,8 +14,9 @@ Safety 4.0 Bootcamp laboratuvar föylerinin **ilk dört analizi**, örnek makine
 | 2 | IEC 62443 Mini Workshop | Zone / Conduit Diagram | EP 05 Zone & Conduit | [Lab2_IEC62443_Zone_Conduit.pdf](analizler/Lab2_IEC62443_Zone_Conduit.pdf) |
 | 3 | Threat & Risk + Risk Matrix | Risk Register | EP 04 Risk Assessment | [Lab3_Threat_Risk_Matrix.pdf](analizler/Lab3_Threat_Risk_Matrix.pdf) |
 | 4 | Secure Remote Access | Secure Architecture | EP 02 + EP 06 | [Lab4_Secure_Remote_Access.pdf](analizler/Lab4_Secure_Remote_Access.pdf) |
+| 5 | SBOM / CVE / Patch | Vulnerability Decision | EP 09 · 10 · 11 | [Lab5_SBOM_CVE_Patch.pdf](analizler/Lab5_SBOM_CVE_Patch.pdf) |
 
-Dört lab ve kapak tek dosyada: [MOSTRO1000_Lab1-4_Analizler.pdf](MOSTRO1000_Lab1-4_Analizler.pdf)
+Beş lab ve kapak tek dosyada: [MOSTRO1000_Lab1-5_Analizler.pdf](MOSTRO1000_Lab1-5_Analizler.pdf)
 Sayfa görselleri: [`gorseller/`](gorseller/)
 
 ---
@@ -88,3 +89,15 @@ Sayfa görselleri: [`gorseller/`](gorseller/)
 
 1. **Saldırgan içeri girerse emniyet fonksiyonu etkilenir mi?** Mimari doğru değilse evet: saldırgan koruma parametrelerini değiştirir ve kapak kilidini bypass eder. Doğru tasarımda güvenlik fonksiyonu ağdan bağımsız, fiziksel anahtar/yetki ile korunur ve güvenli duruma geçer.
 2. **Gereksinim:** Kapak kilidi, acil durdurma ve bant/besleme durdurma davranışı uzak servis ve kontrol ağından bağımsız olmalı. Güvenlik parametreleri fiziksel yetki ve ayrı doğrulama gerektirmelidir.
+
+## Lab 5 · SBOM / CVE / Patch
+
+![Lab 5](gorseller/Lab5_SBOM_CVE_Patch.png)
+
+**Verilen zafiyet kaydı:** Component X (PLC firmware kütüphanesi) · sürüm 2.4 · CVE-XXXX-XXXX · Critical (CVSS 9.8) · yama mevcut.
+
+1. **Bu CVE sizi gerçekten etkiliyor mu?** SBOM'da bileşen (sürücü/PLC firmware) var mı; sürüm 2.4 etkilenen aralıkta mı; açık uzak erişimle ulaşılabilir mi. Üçü sağlanıyorsa etkileniyoruz.
+2. **Üretimi hemen durdurur musunuz?** Makineyi durdurmak zorunlu değil; ancak uzak erişimi hemen kapatıp izole etmek zorunlu. Üretim, risk değerlendirmesi ve güvenli durum kontrolüyle karara bağlanır.
+3. **Yamayı doğrudan mı uygularsınız, önce test mi?** Önce staging/HIL ortamında test. Test ve onay olmadan üretime yama uygulanmaz.
+4. **Bu yama bir safety validation etkiliyor mu?** Evet. Firmware değişimi kapak kilidi ve acil durdurma fonksiyonlarını etkiler; bu fonksiyonlar yeniden doğrulanır, PL hedefi kanıtlanır.
+5. **Yama mümkün değilse compensating control?** Uzak erişimi kapatma, ağ segmentasyonu, izleme, varsayılan parolaların değiştirilmesi, firmware imza doğrulaması, bakım yetkisinin sınırlandırılması. Her önlemin etkisi test edilir.
