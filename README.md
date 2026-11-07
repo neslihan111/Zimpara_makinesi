@@ -18,7 +18,7 @@ Safety 4.0 Bootcamp laboratuvar föylerinin **ilk yedi analizi**, örnek makine 
 | 6 | CRA Incident Simulation | Incident Workflow | EP 13 Incident Response | [Lab6_CRA_Incident_Simulation.pdf](analizler/Lab6_CRA_Incident_Simulation.pdf) |
 | 7 | AI Safety Challenge | AI Fail-Safe Decision | EP 03 + EP 15 | [Lab7_AI_Safety_Challenge.pdf](analizler/Lab7_AI_Safety_Challenge.pdf) |
 
-Lab 1–5 ve kapak tek dosyada: [MOSTRO1000_Lab1-5_Analizler.pdf](MOSTRO1000_Lab1-5_Analizler.pdf)
+Lab 1–7 ve kapak tek dosyada: [MOSTRO1000_Lab1-7_Analizler.pdf](MOSTRO1000_Lab1-7_Analizler.pdf)
 Sayfa görselleri: [`gorseller/`](gorseller/)
 
 ---
