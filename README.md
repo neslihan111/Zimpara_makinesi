@@ -1,6 +1,6 @@
-# MOSTRO 1000 Kalibre Zımpara Makinesi — Safety 4.0 Analizleri (Lab 1–5)
+# MOSTRO 1000 Kalibre Zımpara Makinesi — Safety 4.0 Analizleri (Lab 1–7)
 
-Safety 4.0 Bootcamp laboratuvar föylerinin **ilk beş analizi**, örnek makine olarak
+Safety 4.0 Bootcamp laboratuvar föylerinin **ilk yedi analizi**, örnek makine olarak
 **MOSTRO 1000 kalibre zımpara makinesi** üzerinde doldurulmuştur.
 
 > Bu föyler bir eğitim çıktısıdır; resmî denetim, uygunluk değerlendirmesi veya
@@ -15,8 +15,10 @@ Safety 4.0 Bootcamp laboratuvar föylerinin **ilk beş analizi**, örnek makine 
 | 3 | Threat & Risk + Risk Matrix | Risk Register | EP 04 Risk Assessment | [Lab3_Threat_Risk_Matrix.pdf](analizler/Lab3_Threat_Risk_Matrix.pdf) |
 | 4 | Secure Remote Access | Secure Architecture | EP 02 + EP 06 | [Lab4_Secure_Remote_Access.pdf](analizler/Lab4_Secure_Remote_Access.pdf) |
 | 5 | SBOM / CVE / Patch | Vulnerability Decision | EP 09 · 10 · 11 | [Lab5_SBOM_CVE_Patch.pdf](analizler/Lab5_SBOM_CVE_Patch.pdf) |
+| 6 | CRA Incident Simulation | Incident Workflow | EP 13 Incident Response | [Lab6_CRA_Incident_Simulation.pdf](analizler/Lab6_CRA_Incident_Simulation.pdf) |
+| 7 | AI Safety Challenge | AI Fail-Safe Decision | EP 03 + EP 15 | [Lab7_AI_Safety_Challenge.pdf](analizler/Lab7_AI_Safety_Challenge.pdf) |
 
-Beş lab ve kapak tek dosyada: [MOSTRO1000_Lab1-5_Analizler.pdf](MOSTRO1000_Lab1-5_Analizler.pdf)
+Lab 1–5 ve kapak tek dosyada: [MOSTRO1000_Lab1-5_Analizler.pdf](MOSTRO1000_Lab1-5_Analizler.pdf)
 Sayfa görselleri: [`gorseller/`](gorseller/)
 
 ---
@@ -101,3 +103,47 @@ Sayfa görselleri: [`gorseller/`](gorseller/)
 3. **Yamayı doğrudan mı uygularsınız, önce test mi?** Önce staging/HIL ortamında test. Test ve onay olmadan üretime yama uygulanmaz.
 4. **Bu yama bir safety validation etkiliyor mu?** Evet. Firmware değişimi kapak kilidi ve acil durdurma fonksiyonlarını etkiler; bu fonksiyonlar yeniden doğrulanır, PL hedefi kanıtlanır.
 5. **Yama mümkün değilse compensating control?** Uzak erişimi kapatma, ağ segmentasyonu, izleme, varsayılan parolaların değiştirilmesi, firmware imza doğrulaması, bakım yetkisinin sınırlandırılması. Her önlemin etkisi test edilir.
+
+## Lab 6 · CRA Incident Simulation
+
+**Senaryo:** Saat 10:15. Servis hesabında yetkisiz erişim tespit edildi. PLC konfigürasyonu değişmiş olabilir. Makine hâlâ çalışıyor. Vardiya sorumlusu sizsiniz.
+
+**Görev — zaman çizgisi**
+
+1. **10:15 — ilk 15 dk:** Kimi ararsınız? Vardiya sorumlusu, emniyet sorumlusu, BT/OT güvenlik ve üretim müdürü. İlk üç eylem: bandı ve silindirleri güvenli duruma alın, servis hesabını askıya alın, kanıtı kopyalayın (resetleme yok).
+2. **İlk 2 saat:** Emniyet: kapak kilidi, ışık perdesi ve acil durdurma testi; güvenlik rölesi/sürücü konfigürasyonu known-good ile karşılaştırılır. Kanıt: loglar, konfigürasyon yedeği/hash, kimlik kayıtları. Kapatılacak hesap: servis hesabı.
+3. **24 saat — CRA erken uyarı:** Etkilenen makine ve sürüm, tespit zamanı, şüpheli istismar, muhtemel etki (el-kol yaralanması), alınan ara önlemler.
+4. **72 saat — CRA bildirim:** Kök neden (varsayılan parola, açık uzak erişim), etki, düzeltici önlemler, kullanıcı bilgilendirmesi. Her görev bir sorumluya atanır.
+5. **14 gün — son rapor:** Tüm olay logları, sürücü/güvenlik rölesi konfigürasyon karşılaştırmaları, erişim kayıtları, yama ve doğrulama kayıtları, kararların gerekçeleri, ders çıkarımları.
+
+**En sık hata:** "Resetleyip devam edelim." Bu, kanıtı sonsuza dek siler. Önce emniyet, hemen sonra kanıt.
+
+## Lab 7 · AI Safety Challenge
+
+**Kavram — Prediction ≠ Safety:** Yapay zekâ bir karar üretir; güvenliği garanti eden mimari YZ'nin dışında tanımlanmalıdır. Araçlar: fail-safe, human override, monitoring, confidence threshold, fallback.
+
+Akış: Kamera → YZ Modeli → OK / RED → Parametre → Robot
+
+**Görev — üç başarısızlıkta güvenli davranış**
+
+1. **Model yanlış sınıflandırdı (kusurlu parçaya OK verdi):** YZ tek başına kalınlık kararı vermez. İkinci bağımsız ölçüm (mekanik/lazer) ve örnekleme yapılır; kritik ölçü sapmasında insan onayı alınır. Hata oranı eşik üstüne çıkarsa hat durur.
+2. **Girdi manipüle edildi (kamera verisi bozuk/sahte):** Bütünlük kontrolü (görüntü istatistiği, donmuş kare, zaman kontrolü) ve sensör öz testi yapılır. Şüpheli girdide parça reddedilir, makine durdurulur ve insana bildirilir. "Geçir" varsayılanı yoktur.
+3. **Confidence düştü ("emin değilim"):** Eşiğin altında otomatik ölçü kabulü yoktur. Önce insana sorulur; belirsizlik sürerse güvenli varsayılan (dur/ret) uygulanır. Eşik risk değerlendirmesiyle kalibre edilir ve kayda geçer.
+
+**Karar tablosu — AI Fail-Safe Decision**
+
+| Başarısızlık | Tanımlanan güvenli davranış (kavram) |
+|---|---|
+| Model yanlış sınıflandırdı | İkinci bağımsız ölçüm + örnekleme + insan onayı (human override, monitoring); eşik aşılırsa fail-safe |
+| Girdi manipüle edildi | Bütünlük kontrolü; şüpheli girdi reddi (fail-safe, monitoring) |
+| Confidence düştü | Threshold altında kabul yok; fallback: insan veya dur |
+
+## Ek · SWOT Analizi
+
+Makinenin kapsamlı SWOT analizi (pazar, rakip ve CE/uyum tehditleriyle birlikte): [SWOT_Analizi_MOSTRO1000.md](analizler/SWOT_Analizi_MOSTRO1000.md)
+
+Öne çıkan bulgular:
+- **Güçlü yön:** 1000 mm genişlik ve 160 mm kalınlık kapasitesi, 28,97 kW güç.
+- **Zayıf yön:** İlanda CE işareti, uygunluk beyanı ve üretici bilgisi yok.
+- **Fırsat:** 20 Ocak 2027'de yürürlüğe girecek AB Makine Yönetmeliği için erken uyum.
+- **Tehdit:** Sektör ihracatı 2022'den 2025'e kadar yaklaşık 150 milyon dolarda durağan kaldı.
