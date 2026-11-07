@@ -106,6 +106,8 @@ Sayfa görselleri: [`gorseller/`](gorseller/)
 
 ## Lab 6 · CRA Incident Simulation
 
+![Lab 6](gorseller/Lab6_CRA_Incident_Simulation.png)
+
 **Senaryo:** Saat 10:15. Servis hesabında yetkisiz erişim tespit edildi. PLC konfigürasyonu değişmiş olabilir. Makine hâlâ çalışıyor. Vardiya sorumlusu sizsiniz.
 
 **Görev — zaman çizgisi**
@@ -119,6 +121,8 @@ Sayfa görselleri: [`gorseller/`](gorseller/)
 **En sık hata:** "Resetleyip devam edelim." Bu, kanıtı sonsuza dek siler. Önce emniyet, hemen sonra kanıt.
 
 ## Lab 7 · AI Safety Challenge
+
+![Lab 7](gorseller/Lab7_AI_Safety_Challenge.png)
 
 **Kavram — Prediction ≠ Safety:** Yapay zekâ bir karar üretir; güvenliği garanti eden mimari YZ'nin dışında tanımlanmalıdır. Araçlar: fail-safe, human override, monitoring, confidence threshold, fallback.
 
